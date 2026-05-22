@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ResetButton } from '../components/ResetButton';
 import { AnimatedValue } from '../components/AnimatedValue';
 import { DURATION, EASE } from '../constants/motion';
@@ -19,8 +19,8 @@ const ResultRow: React.FC<ResultRowProps> = ({
   isPrimary = false,
 }) => {
   return (
-    <div className="flex justify-between items-center py-2.5 sm:py-3 select-none">
-      <div className="flex flex-col gap-0.5">
+    <div className="flex justify-between items-center py-2.5 sm:py-3 select-none gap-3">
+      <div className="flex flex-col gap-0.5 shrink-0">
         <span
           className={`font-semibold tracking-wide uppercase ${
             isPrimary
@@ -34,13 +34,13 @@ const ResultRow: React.FC<ResultRowProps> = ({
           {sublabel}
         </span>
       </div>
-      <div className="text-right pl-4 overflow-hidden">
+      <div className="text-right overflow-hidden min-w-0">
         <AnimatedValue
           value={String(value)}
-          className={`font-extrabold tracking-tight font-sans ${
+          className={`font-extrabold tracking-tight font-sans block truncate ${
             isPrimary
-              ? 'text-3xl sm:text-4xl md:text-[2.75rem] text-primary'
-              : 'text-2xl sm:text-3xl md:text-4xl text-primary/85'
+              ? 'text-2xl sm:text-3xl md:text-4xl text-primary'
+              : 'text-xl sm:text-2xl md:text-3xl text-primary/85'
           }`}
         />
       </div>
@@ -63,15 +63,22 @@ export const ResultPanel: React.FC<ResultPanelProps> = ({
   isResetDisabled = true,
   onReset,
 }) => {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <motion.section
-      initial={{ opacity: 0, y: 12 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: DURATION.moderate, ease: EASE.out, delay: 0.08 }}
-      className="bg-background rounded-2xl p-5 sm:p-6 md:p-8 flex flex-col justify-between border border-border/80 h-full gap-6"
+      transition={{
+        duration: prefersReducedMotion ? 0 : DURATION.moderate,
+        ease: EASE.out,
+        delay: prefersReducedMotion ? 0 : 0.08,
+      }}
+      aria-label="Calculation results"
+      className="bg-background rounded-2xl p-5 sm:p-6 md:p-8 flex flex-col justify-between border border-border/80 h-full gap-4 sm:gap-6"
     >
-      {/* Result rows */}
-      <div className="space-y-3 sm:space-y-4">
+      {/* Live region — screen readers announce value changes */}
+      <div className="space-y-2 sm:space-y-3" aria-live="polite" aria-atomic="false">
         <ResultRow
           label="Tip Amount"
           sublabel="/ person"
@@ -83,8 +90,8 @@ export const ResultPanel: React.FC<ResultPanelProps> = ({
           value={totalPerPerson}
         />
 
-        {/* Subtle separator with refined opacity */}
-        <div className="relative py-1">
+        {/* Refined separator */}
+        <div className="relative py-1" aria-hidden="true">
           <hr className="border-border/60" />
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="bg-background px-3 text-[9px] uppercase tracking-[0.2em] text-textSecondary/50 font-medium">

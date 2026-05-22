@@ -14,6 +14,8 @@
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
     text-size-adjust: 100%;
+    /* Prevent horizontal overflow on mobile */
+    overflow-x: hidden;
   }
 
   body {
@@ -22,12 +24,14 @@
     font-feature-settings: 'cv11', 'ss01'; /* Inter OpenType features */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Prevent pull-to-refresh on mobile when scrolling within the app */
+    overscroll-behavior: none;
   }
 
   /* ── Reduced motion ───────────────────────────────────────────────────
      Respects user's OS-level reduced motion preference by disabling
      all CSS transitions/animations. Framer Motion handles its own
-     reduced-motion detection automatically. */
+     reduced-motion detection automatically via useReducedMotion. */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -51,11 +55,33 @@
     -moz-appearance: textfield;
   }
 
+  /* Prevent iOS from styling inputs with rounded corners and shadow */
+  input,
+  button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
   /* ── Focus-visible ────────────────────────────────────────────────────
-     Only show focus rings for keyboard navigation, not mouse clicks */
+     Only show focus rings for keyboard navigation, not mouse/touch */
   :focus:not(:focus-visible) {
     outline: none;
     box-shadow: none;
+  }
+
+  /* ── Fieldset reset ───────────────────────────────────────────────────
+     Remove default fieldset chrome so it can be used semantically
+     without affecting visual layout */
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-inline-size: 0;
+  }
+
+  legend {
+    padding: 0;
   }
 }
 
@@ -67,5 +93,11 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Safe dynamic viewport height for mobile browsers */
+  .min-h-dvh {
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 }

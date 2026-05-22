@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { DURATION, EASE } from '../constants/motion';
 
 interface AnimatedValueProps {
@@ -11,15 +11,16 @@ interface AnimatedValueProps {
 /**
  * Renders a currency value with a subtle cross-fade whenever it changes.
  *
- * Design intent:
- * - Values don't just "snap" — they transition with a quick fade so
- *   the user perceives the update as smooth and intentional.
- * - The animation is fast enough (150ms) to feel instantaneous but
- *   slow enough to register emotionally.
- * - Layout is stable: the container never changes size during transition.
+ * Reduced motion:
+ * - When the user prefers reduced motion, values snap instantly
+ *   without fade/blur transitions.
+ *
+ * Accessibility:
+ * - The outer span carries the value as text content so screen
+ *   readers always announce the current number.
  */
 export const AnimatedValue: React.FC<AnimatedValueProps> = ({ value, className }) => {
-  // Track the previous value to detect actual changes
+  const prefersReducedMotion = useReducedMotion();
   const prevValue = useRef(value);
   const [displayKey, setDisplayKey] = useState(0);
 
@@ -29,6 +30,11 @@ export const AnimatedValue: React.FC<AnimatedValueProps> = ({ value, className }
       setDisplayKey((k) => k + 1);
     }
   }, [value]);
+
+  // Reduced motion: render value directly without animation wrapper
+  if (prefersReducedMotion) {
+    return <span className={className}>{value}</span>;
+  }
 
   return (
     <span className={className} style={{ display: 'inline-block', position: 'relative' }}>

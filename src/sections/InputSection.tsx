@@ -60,7 +60,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
   const tipHasError = !!errors.tip;
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-5 sm:gap-6 w-full">
       {/* ── Bill Input ───────────────────────────────────────────────── */}
       <InputField
         id="bill-input"
@@ -76,7 +76,8 @@ export const InputSection: React.FC<InputSectionProps> = ({
       />
 
       {/* ── Tip Selection ────────────────────────────────────────────── */}
-      <div className="flex flex-col gap-3">
+      <fieldset className="flex flex-col gap-2.5 sm:gap-3">
+        <legend className="sr-only">Tip percentage</legend>
         <div className="flex justify-between items-center">
           <SectionHeader title="Select Tip %" />
         </div>
@@ -84,7 +85,11 @@ export const InputSection: React.FC<InputSectionProps> = ({
         {/* LayoutGroup enables the shared layoutId highlight to animate
             between preset buttons smoothly */}
         <LayoutGroup>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3"
+            role="group"
+            aria-label="Tip percentage presets"
+          >
             {TIP_PRESETS.map((preset) => (
               <TipPresetButton
                 key={preset}
@@ -109,13 +114,13 @@ export const InputSection: React.FC<InputSectionProps> = ({
                 aria-describedby={tipHasError ? 'custom-tip-error' : undefined}
                 className={`w-full h-full min-h-[48px] bg-background border rounded-xl px-3 text-center font-bold text-base text-textPrimary tracking-wider outline-none
                   transition-colors duration-150
-                  focus-visible:ring-2 focus-visible:ring-primary/20
+                  focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-offset-surface
                   ${
                     tipHasError
-                      ? 'border-error/60 focus:border-error'
+                      ? 'border-error/60 focus:border-error focus-visible:ring-error/30'
                       : isCustomTipActive
                         ? 'border-primary ring-2 ring-primary/20'
-                        : 'border-border hover:border-primary/40 focus:border-primary'
+                        : 'border-border hover:border-primary/40 focus:border-primary focus-visible:ring-primary/30'
                   }`}
               />
               {/* Inline % indicator */}
@@ -127,6 +132,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
                     exit={{ opacity: 0, scale: 0.8 }}
                     transition={{ duration: 0.12 }}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-primary pointer-events-none"
+                    aria-hidden="true"
                   >
                     %
                   </motion.span>
@@ -138,7 +144,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
 
         {/* Tip error sits below the entire preset grid */}
         <InlineHelperText id="custom-tip-error" message={errors.tip} isError={!!errors.tip} />
-      </div>
+      </fieldset>
 
       {/* ── Number of People ─────────────────────────────────────────── */}
       <InputField
