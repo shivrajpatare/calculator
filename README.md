@@ -83,8 +83,13 @@ src/
 
 ## Future Improvements
 
-While the current implementation focuses strictly on polished interaction design, accessibility, and resilient frontend execution for the assessment MVP, reasonable future evolutions could include:
+Potential future iterations and product extensions:
 
-- **Locale-Aware Formatting:** Extending currency displays to support international formats and region-specific number systems.
-- **Session Persistence:** Utilizing lightweight `localStorage` to preserve calculation states across accidental page reloads.
-- **Export & Share:** Allowing users to copy a clean text summary of the final split for easy sharing in group messages.
+* Locale-aware currency formatting
+* Multi-currency support
+* Per-person settlement tracking
+* Splitwise-style reconciliation flow
+* Persistent saved sessions
+* Export/share calculation summaries
+
+The current implementation intentionally focuses on interaction quality, responsive UX, accessibility, and polished core calculator behavior within the scope of the assessment.
