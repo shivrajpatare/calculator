@@ -16,7 +16,7 @@ interface AppShellProps {
  */
 export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   return (
-    <div className="min-h-screen min-h-dvh md:h-screen md:h-dvh bg-background text-textPrimary flex flex-col items-center justify-between px-4 py-3 sm:p-6 md:p-8 selection:bg-primary/20 selection:text-primary">
+    <div className="min-h-screen min-h-dvh md:h-screen md:h-dvh md:overflow-hidden bg-background text-textPrimary flex flex-col items-center justify-between px-4 py-3 sm:p-6 md:px-8 md:py-5 selection:bg-primary/20 selection:text-primary">
       {/* Skip link — invisible until focused via keyboard */}
       <a
         href="#calculator"
@@ -26,7 +26,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       </a>
 
       {/* Branding header */}
-      <header className="w-full max-w-4xl flex items-center justify-between py-3 sm:py-4 mb-2 sm:mb-4">
+      <header className="w-full max-w-4xl flex items-center justify-between py-3 sm:py-4 md:py-3 mb-2 sm:mb-4 md:mb-2">
         <div className="flex items-center gap-2" aria-label="Splittr home">
           <div className="w-7 h-7 sm:w-6 sm:h-6 rounded-md bg-gradient-to-tr from-primary to-emerald-400 flex items-center justify-center" aria-hidden="true">
             <span className="text-background text-xs font-extrabold">%</span>
@@ -43,14 +43,14 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       {/* Main content area — `id` for skip-link target */}
       <main
         id="calculator"
-        className="w-full flex-grow flex items-center justify-center"
+        className="w-full flex-grow min-h-0 flex items-center justify-center"
         role="main"
       >
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="w-full max-w-4xl text-center py-3 sm:py-4 mt-4 sm:mt-6">
+      <footer className="w-full max-w-4xl text-center py-3 sm:py-4 md:py-2 mt-4 sm:mt-6 md:mt-3">
         <p className="text-[10px] text-textSecondary uppercase tracking-widest">
           Secured & Optimized Premium Financial Utility
         </p>
