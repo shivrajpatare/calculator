@@ -15,7 +15,7 @@
  */
 export function sanitizeDecimalInput(raw: string): string {
   // Strip anything that isn't a digit, dot, or minus sign
-  let cleaned = raw.replace(/[^0-9.\-]/g, '');
+  let cleaned = raw.replace(/[^0-9.-]/g, '');
 
   // Allow minus only as the very first character
   const hasLeadingMinus = cleaned.startsWith('-');
