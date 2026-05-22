@@ -34,6 +34,10 @@ export function validateBill(
     return ERROR_MESSAGES.bill.tooLow;
   }
 
+  if (num > VALIDATION.bill.max) {
+    return ERROR_MESSAGES.bill.tooHigh;
+  }
+
   return undefined;
 }
 

@@ -7,10 +7,11 @@
  */
 
 export const VALIDATION = {
-  /** Bill amount must be a positive number. No practical upper cap is enforced
-   *  because real-world bills can be arbitrarily large. */
+  /** Bill amount must be a positive number. Capped at ~1 trillion to prevent
+   *  pathological inputs that stress layout or result in impractical numbers. */
   bill: {
     min: 0.01,
+    max: 999999999999,
   },
 
   /**
@@ -44,6 +45,7 @@ export const ERROR_MESSAGES = {
     required: 'Enter a bill amount',
     invalid: 'Enter a valid number',
     tooLow: 'Bill must be greater than $0',
+    tooHigh: 'Bill amount is too large',
   },
   tip: {
     invalid: 'Enter a valid tip percentage',
