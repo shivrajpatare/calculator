@@ -16,7 +16,7 @@ interface AppShellProps {
  */
 export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   return (
-    <div className="min-h-screen min-h-dvh bg-background text-textPrimary flex flex-col items-center justify-between px-4 py-3 sm:p-6 md:p-8 selection:bg-primary/20 selection:text-primary">
+    <div className="min-h-screen min-h-dvh md:h-screen md:h-dvh bg-background text-textPrimary flex flex-col items-center justify-between px-4 py-3 sm:p-6 md:p-8 selection:bg-primary/20 selection:text-primary">
       {/* Skip link — invisible until focused via keyboard */}
       <a
         href="#calculator"
