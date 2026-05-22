@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# Splittr — Tip Calculator & Bill Splitter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive tip calculator built as part of the **DevWeekends Fellowship 2026** frontend assessment.
 
-Currently, two official plugins are available:
+Enter a bill amount, choose a tip percentage, set the number of people, and see the split calculated live — no submit button required.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+> **Deployment URL:** _[to be added after deployment]_
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+| Layer | Tool |
+|---|---|
+| Framework | React 19 + TypeScript |
+| Build | Vite 8 |
+| Styling | Tailwind CSS 3 |
+| Motion | Framer Motion 12 |
+| Icons | Lucide React |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Node.js** ≥ 18
+- **npm** ≥ 9
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Install & Run
+
+```bash
+# Clone the repository
+git clone https://github.com/shivrajpatare/calculator.git
+cd calculator
+
+# Install dependencies
+npm install
+
+# Start the dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The app will be available at `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Production Build
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
+npm run preview
 ```
+
+## Features
+
+- **Live calculations** — results update instantly while typing
+- **Tip presets** (5%, 10%, 15%, 25%, 50%) with a travelling highlight animation
+- **Custom tip** input that coexists cleanly with presets
+- **Inline validation** — calm, non-disruptive error messages
+- **Input sanitisation** — handles pasted text, garbage input, rapid typing
+- **Full reset** — clears all fields, validation, and active states
+- **Mobile-first** — 48px touch targets, iOS zoom prevention, dynamic viewport height
+- **Accessible** — skip link, `aria-live` results, `aria-pressed` toggles, `focus-visible` rings
+- **Reduced motion** — respects `prefers-reduced-motion` across all animations
+- **Dark theme** — purpose-built dark UI, not an afterthought
+
+## Project Structure
+
+```
+src/
+├── components/     # Reusable UI primitives
+├── constants/      # Presets, validation rules, motion tokens
+├── sections/       # Page-level compositions (InputSection, ResultPanel)
+├── styles/         # Global CSS + Tailwind base
+└── utils/          # Calculation, validation, sanitisation helpers
+```
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | TypeScript check + production build |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |

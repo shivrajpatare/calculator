@@ -48,7 +48,7 @@ export const ERROR_MESSAGES = {
   tip: {
     invalid: 'Enter a valid tip percentage',
     tooHigh: `Tip can't exceed ${200}%`,
-    negative: 'Tip can't be negative',
+    negative: "Tip can't be negative",
   },
   people: {
     required: 'Enter the number of people',
