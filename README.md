@@ -80,3 +80,11 @@ src/
 | `npm run build` | TypeScript check + production build |
 | `npm run preview` | Preview the production build locally |
 | `npm run lint` | Run ESLint |
+
+## Future Improvements
+
+While the current implementation focuses strictly on polished interaction design, accessibility, and resilient frontend execution for the assessment MVP, reasonable future evolutions could include:
+
+- **Locale-Aware Formatting:** Extending currency displays to support international formats and region-specific number systems.
+- **Session Persistence:** Utilizing lightweight `localStorage` to preserve calculation states across accidental page reloads.
+- **Export & Share:** Allowing users to copy a clean text summary of the final split for easy sharing in group messages.
