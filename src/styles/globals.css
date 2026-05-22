@@ -3,7 +3,69 @@
 @tailwind utilities;
 
 @layer base {
+  /* ── Global resets ────────────────────────────────────────────────────── */
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-textPrimary antialiased selection:bg-primary/30 selection:text-primary;
+    @apply bg-background text-textPrimary antialiased;
+    @apply selection:bg-primary/30 selection:text-primary;
+    font-feature-settings: 'cv11', 'ss01'; /* Inter OpenType features */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── Reduced motion ───────────────────────────────────────────────────
+     Respects user's OS-level reduced motion preference by disabling
+     all CSS transitions/animations. Framer Motion handles its own
+     reduced-motion detection automatically. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* ── Input appearance normalisation ───────────────────────────────────
+     Remove browser spinner controls on numeric inputs for clean UI */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  /* ── Focus-visible ────────────────────────────────────────────────────
+     Only show focus rings for keyboard navigation, not mouse clicks */
+  :focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+@layer utilities {
+  /* Utility for hiding scrollbar while maintaining scrollability */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
