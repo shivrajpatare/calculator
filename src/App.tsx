@@ -1,33 +1,77 @@
+import { useState } from 'react';
+import { AppShell } from './components/AppShell';
+import { ResponsiveContainer } from './components/ResponsiveContainer';
+import { CalculatorCard } from './components/CalculatorCard';
+import { InputSection } from './sections/InputSection';
+import { ResultPanel } from './sections/ResultPanel';
+
 export default function App() {
+  // Setup lightweight state to make forms interactive, keeping business logic out for Phase 2
+  const [bill, setBill] = useState('');
+  const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
+  const [customTip, setCustomTip] = useState('');
+  const [people, setPeople] = useState('');
+
+  // Static preview values for Phase 1
+  const tipAmountPerPerson = '$0.00';
+  const totalPerPerson = '$0.00';
+  const grandTotal = '$0.00';
+
+  // Toggle Reset button state visually if any input has been filled
+  const hasValues = !!(bill || selectedPreset || customTip || people);
+
+  const handleReset = () => {
+    setBill('');
+    setSelectedPreset(null);
+    setCustomTip('');
+    setPeople('');
+  };
+
+  // Mock static layout errors for visual verification of error state styling
+  const errors = {
+    bill: undefined,
+    tip: undefined,
+    people: undefined,
+  };
+
   return (
-    <main className="min-h-screen bg-background text-textPrimary flex items-center justify-center p-4 sm:p-8">
-      {/* Container constraint for the single-screen calculator */}
-      <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 bg-surface rounded-3xl shadow-2xl p-6 sm:p-8 border border-border">
-        
-        {/* Left Side: Input Form Scaffold */}
-        <section className="flex flex-col gap-6">
-          <header>
-            <h1 className="text-2xl font-semibold tracking-tight">Tip Calculator</h1>
-            <p className="text-sm text-textSecondary mt-1">Calculate your share easily</p>
-          </header>
-          
-          <div className="space-y-4">
-            <p className="text-sm text-textSecondary italic">Input form goes here...</p>
-          </div>
-        </section>
+    <AppShell>
+      <ResponsiveContainer>
+        <CalculatorCard>
+          {/* Left Panel: Inputs Container */}
+          <section className="flex flex-col gap-6">
+            <header className="border-b border-border/50 pb-4">
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-textPrimary">
+                Split & Tip
+              </h1>
+              <p className="text-xs sm:text-sm text-textSecondary mt-1">
+                Enter your billing details to see the live calculations.
+              </p>
+            </header>
 
-        {/* Right Side: Output Summary Scaffold */}
-        <section className="bg-background rounded-2xl p-6 flex flex-col justify-between border border-border">
-          <div className="space-y-4">
-            <p className="text-sm text-textSecondary italic">Live output goes here...</p>
-          </div>
-          
-          <button className="w-full mt-8 py-3 px-4 bg-primary text-background font-semibold rounded-xl opacity-50 cursor-not-allowed">
-            Reset
-          </button>
-        </section>
+            <InputSection
+              bill={bill}
+              onBillChange={setBill}
+              selectedPreset={selectedPreset}
+              onPresetSelect={setSelectedPreset}
+              customTip={customTip}
+              onCustomTipChange={setCustomTip}
+              people={people}
+              onPeopleChange={setPeople}
+              errors={errors}
+            />
+          </section>
 
-      </div>
-    </main>
+          {/* Right Panel: Results Summary Container */}
+          <ResultPanel
+            tipAmountPerPerson={tipAmountPerPerson}
+            totalPerPerson={totalPerPerson}
+            grandTotal={grandTotal}
+            isResetDisabled={!hasValues}
+            onReset={handleReset}
+          />
+        </CalculatorCard>
+      </ResponsiveContainer>
+    </AppShell>
   );
 }
