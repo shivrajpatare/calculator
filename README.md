@@ -6,7 +6,7 @@ Enter a bill amount, choose a tip percentage, set the number of people, and see 
 
 ## Live Demo
 
-> **Deployment URL:** _[to be added after deployment]_
+> **Deployment URL:** [https://calculator-theta-ten-12.vercel.app/](https://calculator-theta-ten-12.vercel.app/)
 
 ## Tech Stack
 

@@ -19,7 +19,7 @@ npm run build
 npm run preview
 ```
 
-**Deployment URL:** _[to be added after deployment]_
+**Deployment URL:** [https://calculator-theta-ten-12.vercel.app/](https://calculator-theta-ten-12.vercel.app/)
 
 ---
 
