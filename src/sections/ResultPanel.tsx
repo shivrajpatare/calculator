@@ -18,6 +18,23 @@ const ResultRow: React.FC<ResultRowProps> = ({
   value,
   isPrimary = false,
 }) => {
+  const valueStr = String(value);
+  const len = valueStr.length;
+
+  // Adaptive typography: scale down gracefully for unusually large values
+  // to prevent truncation while maintaining premium layout for normal values.
+  const sizeClass = isPrimary
+    ? len > 14
+      ? 'text-lg sm:text-xl md:text-2xl'
+      : len > 11
+        ? 'text-xl sm:text-2xl md:text-3xl'
+        : 'text-2xl sm:text-3xl md:text-4xl'
+    : len > 14
+      ? 'text-base sm:text-lg md:text-xl'
+      : len > 11
+        ? 'text-lg sm:text-xl md:text-2xl'
+        : 'text-xl sm:text-2xl md:text-3xl';
+
   return (
     <div className="flex justify-between items-center py-2.5 sm:py-3 select-none gap-3">
       <div className="flex flex-col gap-0.5 shrink-0">
@@ -36,12 +53,10 @@ const ResultRow: React.FC<ResultRowProps> = ({
       </div>
       <div className="text-right overflow-hidden min-w-0">
         <AnimatedValue
-          value={String(value)}
-          className={`font-extrabold tracking-tight font-sans block truncate ${
-            isPrimary
-              ? 'text-2xl sm:text-3xl md:text-4xl text-primary'
-              : 'text-xl sm:text-2xl md:text-3xl text-primary/85'
-          }`}
+          value={valueStr}
+          className={`font-extrabold tracking-tight font-sans block truncate transition-all duration-300 ${
+            isPrimary ? 'text-primary' : 'text-primary/85'
+          } ${sizeClass}`}
         />
       </div>
     </div>
